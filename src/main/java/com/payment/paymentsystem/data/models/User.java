@@ -3,7 +3,9 @@ package com.payment.paymentsystem.data.models;
 
 import jakarta.persistence.*;
 
-@Entity
+import java.util.UUID;
+
+@Entity(name = "users")
 public abstract class User {
     public User(String name, String email) {
         this.name = name;
@@ -11,9 +13,9 @@ public abstract class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id")
-    private Long id;
+    private UUID id;
 
     @Column(name="name", nullable = false)
 
@@ -21,11 +23,11 @@ public abstract class User {
     @Column(name="email", nullable = false, unique = true)
     private String email;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

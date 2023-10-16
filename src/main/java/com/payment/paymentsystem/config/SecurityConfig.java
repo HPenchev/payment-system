@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
-public final class SecurityConfig {
+public class SecurityConfig {
 
     /**
      * <p>Method configuring security.
