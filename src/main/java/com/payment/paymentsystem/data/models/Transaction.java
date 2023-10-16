@@ -8,6 +8,12 @@ import java.util.UUID;
 
 @Entity(name="transactions")
 public abstract class Transaction {
+    public Transaction() {}
+
+    public Transaction(TransactionStatus status) {
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id")
