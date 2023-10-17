@@ -33,5 +33,8 @@ public class UserController {
         return ResponseEntity.of(userService.getMerchantByEmail(email));
     }
 
-
+    @PatchMapping(path = "/edit")
+    public ResponseEntity<UserDTO> edit(@RequestBody UserDTO user) {
+        return ResponseEntity.of(userService.updateMerchant(user));
+    }
 }

@@ -8,14 +8,13 @@ import com.payment.paymentsystem.data.models.ChargeTransaction;
 import com.payment.paymentsystem.data.models.Merchant;
 import com.payment.paymentsystem.data.models.User;
 import com.payment.paymentsystem.data.repos.UserRepository;
+import org.modelmapper.Conditions;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,6 +56,8 @@ public class UserService {
                 merchant.getStatus(),
                 UserRole.MERCHANT);
 
+        result.setId(merchant.getId());
+
         List<BigDecimal> amounts = merchant.getTransactions()
                 .stream()
                 .filter(t -> t.getStatus() == TransactionStatus.APPROVED)
@@ -73,5 +74,25 @@ public class UserService {
         result.setTotalTransactionAmount(totalAmount);
 
         return Optional.of(result);
+    }
+
+    public Optional<UserDTO> updateMerchant(UserDTO userDTO) {
+        Optional<User> user = userRepository.findById(userDTO.getId());
+        if (user.isEmpty() || !user.get().getClass().equals(Merchant.class)) {
+            return Optional.empty();
+        }
+
+        Merchant merchant = (Merchant) user.get();
+
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+
+        mapper.map(userDTO, merchant);
+
+        userRepository.save(merchant);
+
+        mapper.map(merchant, userDTO);
+
+        return Optional.of(userDTO);
     }
 }

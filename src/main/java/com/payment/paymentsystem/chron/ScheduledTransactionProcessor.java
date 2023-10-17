@@ -19,7 +19,6 @@ public class ScheduledTransactionProcessor {
         this.transactionService = transactionService;
     }
 
-
    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.HOURS)
     public void deleteOldTransactions() {
        transactionService.deleteOldTransactions(new Date(System.currentTimeMillis() - 3600 * 1000));
