@@ -18,4 +18,8 @@ public class ReversalTransaction extends Transaction {
     @OneToOne
     @JoinColumn(name = "authorise_transaction_id", referencedColumnName = "id")
     AuthoriseTransaction authoriseTransaction;
+
+    public AuthoriseTransaction getAuthoriseTransaction() {
+        return authoriseTransaction;
+    }
 }

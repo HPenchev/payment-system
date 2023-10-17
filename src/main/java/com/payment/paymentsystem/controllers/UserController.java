@@ -5,11 +5,13 @@ import com.payment.paymentsystem.CSVHelper;
 import com.payment.paymentsystem.services.UserService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -27,7 +29,9 @@ public class UserController {
     }
 
     @GetMapping(path = "/{email}")
-    public UserDTO create(@PathVariable("email") String email) throws IOException {
-        return userService.getMerchantByEmail(email);
+    public ResponseEntity<UserDTO> create(@PathVariable("email") String email) throws IOException {
+        return ResponseEntity.of(userService.getMerchantByEmail(email));
     }
+
+
 }

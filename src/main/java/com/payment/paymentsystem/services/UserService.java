@@ -43,10 +43,10 @@ public class UserService {
         return validUsers;
     }
 
-    public UserDTO getMerchantByEmail(String email) {
+    public Optional<UserDTO> getMerchantByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isEmpty() || !user.get().getClass().equals(Merchant.class)){
-            return null;
+            return Optional.empty();
         }
 
         Merchant merchant = (Merchant)user.get();
@@ -72,6 +72,6 @@ public class UserService {
 
         result.setTotalTransactionAmount(totalAmount);
 
-        return result;
+        return Optional.of(result);
     }
 }

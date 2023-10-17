@@ -19,4 +19,8 @@ public class RefundTransaction extends Transaction{
         super(status);
         this.chargeTransaction = chargeTransaction;
     }
+
+    public ChargeTransaction getChargeTransaction() {
+        return chargeTransaction;
+    }
 }

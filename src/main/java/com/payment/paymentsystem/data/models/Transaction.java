@@ -4,6 +4,7 @@ import com.payment.paymentsystem.data.TransactionStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity(name="transactions")
@@ -20,7 +21,10 @@ public abstract class Transaction {
     private UUID id;
 
     @Column(name="status")
-    TransactionStatus status;
+    private TransactionStatus status;
+
+    @Column(name = "time_of_transaction")
+    private final Date transactionTime = new Date();
 
     public UUID getId() {
         return id;
